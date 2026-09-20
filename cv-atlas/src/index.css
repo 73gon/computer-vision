@@ -1,0 +1,271 @@
+@import 'tailwindcss';
+@import 'katex/dist/katex.min.css';
+
+/* ------------------------------------------------------------------ *
+ *  Eigenpair design system — quiet monochrome, warm display serif.
+ *  Tokens mirror eigenpair.com/brand (live values, Sept 2026 edition).
+ *  Cooper Light BT is not web-licensed, so Fraunces (soft, low optical
+ *  weight) stands in as the expressive display voice.
+ * ------------------------------------------------------------------ */
+
+@font-face {
+  font-family: 'Geist Fallback';
+  src: local('Segoe UI'), local('Helvetica Neue'), local('Arial');
+  size-adjust: 100%;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: oklch(99% 0 0);
+  --foreground: oklch(14.5% 0 0);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(14.5% 0 0);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(14.5% 0 0);
+  --muted: oklch(97% 0 0);
+  --muted-foreground: oklch(55.6% 0 0);
+  --accent: oklch(97% 0 0);
+  --accent-foreground: oklch(20.5% 0 0);
+  --primary: oklch(20.5% 0 0);
+  --primary-foreground: oklch(98.5% 0 0);
+  --border: oklch(92.2% 0 0);
+  --hairline: oklch(0% 0 0 / 0.08);
+  --control-surface: #f5f5f5;
+  --field-surface: #ffffff;
+  --field-edge: #d4d4d4;
+  --control-focus: #737373;
+  --destructive: oklch(57.7% 0.245 27.325);
+
+  /* Semantic accents — used sparingly, only to encode meaning in
+     diagrams (left/right camera, data/smoothness term, …). */
+  --tint-1: oklch(62% 0.13 250); /* cool  — "left / input / data"      */
+  --tint-2: oklch(64% 0.14 35); /* warm  — "right / output / prior"   */
+  --tint-3: oklch(60% 0.12 155); /* green — "correct / match"          */
+  --tint-4: oklch(65% 0.13 300); /* violet— "scale / third dimension"  */
+
+  --radius-panel: 20px;
+  --radius-control: 12px;
+  --radius-field: 10px;
+  --motion: 150ms;
+}
+
+.dark {
+  --background: oklch(7% 0 0);
+  --foreground: oklch(98.5% 0 0);
+  --card: oklch(11.5% 0 0);
+  --card-foreground: oklch(98.5% 0 0);
+  --popover: oklch(11.5% 0 0);
+  --popover-foreground: oklch(98.5% 0 0);
+  --muted: oklch(15.5% 0 0);
+  --muted-foreground: oklch(66% 0 0);
+  --accent: oklch(18% 0 0);
+  --accent-foreground: oklch(98.5% 0 0);
+  --primary: oklch(98.5% 0 0);
+  --primary-foreground: oklch(14.5% 0 0);
+  --border: oklch(100% 0 0 / 0.1);
+  --hairline: oklch(100% 0 0 / 0.08);
+  --control-surface: #1e1e1e;
+  --field-surface: #161616;
+  --field-edge: #393939;
+  --control-focus: #999999;
+  --destructive: oklch(70.4% 0.191 22.216);
+
+  --tint-1: oklch(72% 0.12 250);
+  --tint-2: oklch(74% 0.13 35);
+  --tint-3: oklch(72% 0.11 155);
+  --tint-4: oklch(75% 0.12 300);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-control: var(--control-surface);
+  --color-field: var(--field-surface);
+  --color-field-edge: var(--field-edge);
+  --color-focus: var(--control-focus);
+  --color-destructive: var(--destructive);
+  --color-tint-1: var(--tint-1);
+  --color-tint-2: var(--tint-2);
+  --color-tint-3: var(--tint-3);
+  --color-tint-4: var(--tint-4);
+
+  --font-sans: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-display: 'Fraunces', 'Cooper Light BT', Georgia, serif;
+
+  --radius-panel: 20px;
+  --radius-control: 12px;
+  --radius-field: 10px;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    font-variation-settings:
+      'SOFT' 60,
+      'WONK' 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--control-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  /* Quiet scrollbars — the content leads. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--field-edge) transparent;
+  }
+}
+
+@layer components {
+  /* A section eyebrow: "03 / SCALE SPACE" */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .hairline {
+    border-color: var(--hairline);
+  }
+
+  /* KaTeX inherits our type colour and sits on the text baseline. */
+  .katex {
+    font-size: 1.04em;
+  }
+  .katex-display {
+    /* Left-aligned rather than centred: a reference sheet is scanned
+       down its left edge, and centring wide formulas inside a scrolling
+       box hides their beginning. */
+    margin: 0;
+    padding: 0.25rem 0;
+    text-align: left;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .katex-display > .katex {
+    white-space: normal;
+  }
+}
+
+/* Motion: deliberate, never distracting. Always respect the OS setting. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Range inputs, restyled to the brand: a hairline track, a solid thumb. */
+@layer components {
+  .ep-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 22px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .ep-range::-webkit-slider-runnable-track {
+    height: 2px;
+    background: var(--field-edge);
+    border-radius: 2px;
+  }
+  .ep-range::-moz-range-track {
+    height: 2px;
+    background: var(--field-edge);
+    border-radius: 2px;
+  }
+  .ep-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    margin-top: -6px;
+    border-radius: 999px;
+    background: var(--thumb, var(--foreground));
+    border: 2px solid var(--background);
+    box-shadow: 0 0 0 1px var(--field-edge);
+    transition: transform 150ms ease;
+  }
+  .ep-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: var(--thumb, var(--foreground));
+    border: 2px solid var(--background);
+    box-shadow: 0 0 0 1px var(--field-edge);
+  }
+  .ep-range:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  SVG geometry transitions.
+ *  Motion cannot reliably interpolate SVG presentation attributes, so
+ *  the interactive figures render their geometry directly and let CSS
+ *  carry the movement. These are animatable CSS properties in SVG2.
+ *  The reduced-motion block above neutralises them automatically.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .ep-anim {
+    transition-property: cx, cy, r, x, y, width, height, x1, y1, x2, y2, transform, opacity,
+      fill-opacity, stroke-opacity;
+    transition-duration: 260ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ep-anim-fast {
+    transition-property: cx, cy, r, x, y, width, height, x1, y1, x2, y2, transform, opacity;
+    transition-duration: 130ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
